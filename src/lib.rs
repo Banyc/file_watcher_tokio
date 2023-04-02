@@ -3,7 +3,7 @@ use std::{path::Path, sync::Arc};
 use async_trait::async_trait;
 use notify::{RecommendedWatcher, Watcher};
 use tokio::sync::mpsc::Receiver;
-use tracing::{info, instrument, trace};
+use tracing::{instrument, trace};
 
 #[instrument]
 fn async_watcher() -> notify::Result<(RecommendedWatcher, Receiver<notify::Result<notify::Event>>)>
@@ -33,7 +33,7 @@ where
     P: AsRef<Path> + std::fmt::Debug,
     EA: EventActor,
 {
-    trace!(path = ?path, "Watching config file");
+    trace!(path = ?path, "Watching file");
 
     let (mut watcher, mut rx) = async_watcher()?;
 
@@ -46,11 +46,11 @@ where
         };
         match res {
             Ok(event) => {
-                info!("Config file changed: {:?}", event);
+                trace!("File changed: {:?}", event);
                 actor.notify(event).await;
             }
             Err(e) => {
-                info!("Error watching config file: {:?}", e);
+                trace!("Error watching config file: {:?}", e);
             }
         }
     }
