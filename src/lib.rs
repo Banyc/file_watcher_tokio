@@ -1,6 +1,5 @@
 use std::{path::Path, sync::Arc};
 
-use async_trait::async_trait;
 use notify::{RecommendedWatcher, Watcher};
 use tokio::sync::mpsc::Receiver;
 use tracing::{instrument, trace};
@@ -22,9 +21,8 @@ fn async_watcher() -> notify::Result<(RecommendedWatcher, Receiver<notify::Resul
     Ok((watcher, rx))
 }
 
-#[async_trait]
 pub trait EventActor {
-    async fn notify(&self, event: notify::Event);
+    fn notify(&self, event: notify::Event) -> impl std::future::Future<Output = ()> + Send;
 }
 
 #[instrument(skip(actor))]
