@@ -1,6 +1,6 @@
 [package]
 name = "file_watcher_tokio"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 description = "File watcher using tokio"
 license = "MIT"
@@ -9,7 +9,7 @@ repository = "https://github.com/Banyc/file_watcher_tokio"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-futures = "0.3.28"
-notify = "6.0.0"
-tokio = { version = "1.28.2", features = ["sync"] }
-tracing = "0.1.37"
+futures = "0.3"
+notify = "7"
+tokio = { version = "1", features = ["sync"] }
+tracing = "0.1"
